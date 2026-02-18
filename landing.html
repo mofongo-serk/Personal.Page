@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Julio Felipe — Projects</title>
+
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <!-- Intro overlay -->
+  <section class="overlay" id="overlay" aria-label="Intro screen">
+    <div class="bow-wrap">
+      <h1 class="overlay-title">Press the bow to open</h1>
+      <p class="overlay-sub">A small reveal before the projects.</p>
+
+      <button class="bow-btn" id="bowButton" aria-label="Open projects">
+        <span class="sr-only">Open Projects</span>
+        <div class="bow" aria-hidden="true">
+          <div class="loop left"></div>
+          <div class="loop right"></div>
+          <div class="knot"></div>
+          <div class="tails">
+            <div class="tail left"></div>
+            <div class="tail right"></div>
+          </div>
+        </div>
+      </button>
+
+      <p class="overlay-sub">Tip: you can also press <b>Enter</b>.</p>
+    </div>
+  </section>
+
+  <!-- Reveal curtain animation layer -->
+  <div class="reveal" id="reveal" aria-hidden="true"></div>
+
+  <!-- Main site -->
+  <header>
+    <div class="topbar">
+      <div class="name">
+        <div class="dot"></div>
+        <div>
+          <h1>Julio Felipe</h1>
+          <p>Personal Projects • CS / Software</p>
+        </div>
+      </div>
+
+      <nav class="links" aria-label="Quick links">
+        <a class="chip" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="chip" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="chip" href="mailto:you@example.com">Email</a>
+      </nav>
+    </div>
+
+    <div class="hero">
+      <h2>Projects I’m building</h2>
+      <p>
+        A growing set of work across coding, UI, and experiments. Click into any project to see the demo
+        or source code.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section class="grid" aria-label="Projects">
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> Featured</div>
+        <h3>Snake Game (Pygame)</h3>
+        <p>
+          A modern Snake with profiles, personal bests, and extra mechanics (fake food, chasing snakes, etc.).
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">View Demo</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> Coming Soon</div>
+        <h3>Lorem ipsum dolor</h3>
+        <p>
+          lorem ipsum dolor eaii emans theis
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">View</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> Coming Soon</div>
+        <h3>Lorem ipsum dolor, sit </h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">View</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> Coming Soon</div>
+        <h3>lorem ipsum dolor , sit</h3>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">View</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> UI</div>
+        <h3>Calculator App</h3>
+        <p>
+          A clean calculator with keyboard controls, history, and a polished layout.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">Demo</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> Coming soon</div>
+        <h3>Next Project</h3>
+        <p>
+          Replace this card with your next build. Keep it simple: what it does + why it matters.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">Details</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Repo</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Julio Felipe — Built with HTML/CSS/JS
+  </footer>
+
+  <!-- Only include JS once, at the bottom -->
+  <script src="js/script.js"></script>
+</body>
+</html>

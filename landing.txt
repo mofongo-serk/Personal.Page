@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Julio Felipe — Projects</title>
+  <style>
+    :root{
+      --bg: #050505;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.08);
+      --text: #f3f3f3;
+      --muted: rgba(255,255,255,0.72);
+      --accent: #e10613; /* red bow */
+      --shadow: 0 20px 60px rgba(0,0,0,0.6);
+      --radius: 18px;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1000px 700px at 50% 20%, rgba(225,6,19,0.10), transparent 55%),
+                  radial-gradient(900px 700px at 50% 90%, rgba(255,255,255,0.06), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ---------- Intro Overlay ---------- */
+    .overlay{
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: #000;
+      z-index: 50;
+      transition: opacity 650ms ease, visibility 650ms ease;
+    }
+    .overlay.hidden{
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .bow-wrap{
+      display: grid;
+      place-items: center;
+      gap: 18px;
+      transform: translateY(-6px);
+      text-align: center;
+      padding: 24px;
+    }
+    /* Spin animation before opening */
+    .bow-btn.spin {
+       animation: bowSpin 0.3s cubic-bezier(.2,.8,.2,1);
+    }
+
+    @keyframes bowSpin {
+    0%   { transform: scale(1) rotate(0deg); }
+    40%  { transform: scale(1.1) rotate(180deg); }
+    70%  { transform: scale(1.05) rotate(300deg); }
+    100% { transform: scale(1) rotate(360deg); }
+    }
+
+    /* Bow button */
+    .bow-btn{
+      width: 160px;
+      height: 110px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      filter: drop-shadow(0 14px 30px rgba(225,6,19,0.22));
+      transform: scale(1);
+      transition: transform 180ms ease;
+      outline: none;
+    }
+    .bow-btn:hover{ transform: scale(1.03); }
+    .bow-btn:active{ transform: scale(0.99); }
+
+    /* Bow pieces */
+    .bow{
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+    .loop{
+      position: absolute;
+      width: 74px;
+      height: 54px;
+      background: linear-gradient(180deg, #ff2a35, var(--accent));
+      border-radius: 16px 26px 26px 16px;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.14);
+    }
+    .loop.left{
+      left: 12px;
+      transform: rotate(-10deg);
+      border-radius: 26px 16px 16px 26px;
+    }
+    .loop.right{
+      right: 12px;
+      transform: rotate(10deg);
+    }
+    .knot{
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(180deg, #ff2a35, #b8040f);
+      border-radius: 12px;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.14);
+      position: relative;
+      z-index: 2;
+    }
+    .tails{
+      position: absolute;
+      bottom: -8px;
+      width: 140px;
+      height: 46px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 0;
+      opacity: 0.96;
+    }
+    .tail{
+      width: 56px;
+      height: 46px;
+      background: linear-gradient(180deg, #ff2a35, var(--accent));
+      clip-path: polygon(0 0, 100% 0, 72% 100%, 50% 76%, 28% 100%);
+      border-radius: 12px;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.14);
+    }
+    .tail.left{ transform: rotate(-4deg); }
+    .tail.right{ transform: rotate(4deg); }
+
+    .overlay-title{
+      font-size: clamp(22px, 3vw, 30px);
+      letter-spacing: 0.4px;
+      margin: 0;
+      line-height: 1.1;
+    }
+    .overlay-sub{
+      margin: 0;
+      color: rgba(255,255,255,0.72);
+      font-size: 14px;
+    }
+
+    /* ---------- Reveal effect ---------- */
+    .reveal{
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 40;
+      transform: translateY(0);
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .reveal.play{
+      opacity: 1;
+      animation: curtain 900ms cubic-bezier(.2,.8,.1,1) forwards;
+    }
+
+    @keyframes curtain{
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-110%); }
+    }
+
+    /* ---------- Main content ---------- */
+    header{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 44px 20px 10px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 700ms ease 250ms, transform 700ms ease 250ms;
+    }
+    main{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 700ms ease 350ms, transform 700ms ease 350ms;
+    }
+
+    body.revealed header,
+    body.revealed main{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .topbar{
+      display:flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 18px 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .name{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 260px;
+    }
+    .dot{
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 22px rgba(225,6,19,0.55);
+    }
+    .name h1{
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0.3px;
+    }
+    .name p{
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .links{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .chip{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.88);
+      text-decoration: none;
+      font-size: 13px;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+      user-select: none;
+    }
+    .chip:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .hero{
+      margin-top: 22px;
+      padding: 22px 6px 4px;
+    }
+    .hero h2{
+      margin: 0 0 8px;
+      font-size: clamp(26px, 4vw, 44px);
+      letter-spacing: 0.2px;
+    }
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+      max-width: 72ch;
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .grid{
+      margin-top: 22px;
+      display:grid;
+      gap: 14px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .card{
+      grid-column: span 12;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    @media (min-width: 740px){
+      .card{ grid-column: span 6; }
+    }
+    @media (min-width: 1020px){
+      .card{ grid-column: span 4; }
+    }
+
+    .badge{
+      display:inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.86);
+      background: rgba(225,6,19,0.12);
+      border: 1px solid rgba(225,6,19,0.25);
+      padding: 7px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .badge .mini-dot{
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .card h3{
+      margin: 6px 0 6px;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+    }
+    .card p{
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.5;
+      min-height: 52px;
+    }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.92);
+      text-decoration: none;
+      font-size: 13px;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(225,6,19,0.95), rgba(160,0,10,0.95));
+      border-color: rgba(255,255,255,0.16);
+      box-shadow: 0 14px 40px rgba(225,6,19,0.18);
+    }
+
+    footer{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 20px 44px;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+    }
+
+    /* Accessibility */
+    .sr-only{
+      position:absolute;
+      width:1px;height:1px;
+      padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Intro overlay -->
+  <section class="overlay" id="overlay" aria-label="Intro screen">
+    <div class="bow-wrap">
+      <h1 class="overlay-title">Press the bow to open</h1>
+      <p class="overlay-sub">A small reveal before the projects.</p>
+
+      <button class="bow-btn" id="bowButton" aria-label="Open projects">
+        <span class="sr-only">Open Projects</span>
+        <div class="bow" aria-hidden="true">
+          <div class="loop left"></div>
+          <div class="loop right"></div>
+          <div class="knot"></div>
+          <div class="tails">
+            <div class="tail left"></div>
+            <div class="tail right"></div>
+          </div>
+        </div>
+      </button>
+
+      <p class="overlay-sub">Tip: you can also press <b>Enter</b>.</p>
+    </div>
+  </section>
+
+  <!-- Reveal curtain animation layer -->
+  <div class="reveal" id="reveal" aria-hidden="true"></div>
+
+  <!-- Main site -->
+  <header>
+    <div class="topbar">
+      <div class="name">
+        <div class="dot"></div>
+        <div>
+          <h1>Julio Felipe</h1>
+          <p>Personal Projects • CS / Software</p>
+        </div>
+      </div>
+
+      <nav class="links" aria-label="Quick links">
+        <!-- Replace these with your real links -->
+        <a class="chip" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="chip" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="chip" href="mailto:you@example.com">Email</a>
+      </nav>
+    </div>
+
+    <div class="hero">
+      <h2>Projects I’m building</h2>
+      <p>
+        A growing set of work across coding, UI, and experiments. Click into any project to see the demo
+        or source code.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section class="grid" aria-label="Projects">
+      <!-- EDIT THESE PROJECT CARDS -->
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> Featured</div>
+        <h3>Snake Game (Pygame)</h3>
+        <p>
+          A modern Snake with profiles, personal bests, and extra mechanics (fake food, chasing snakes, etc.).
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">View Demo</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> C++</div>
+        <h3>4×4 Word Grid Game</h3>
+        <p>
+          Terminal word puzzle: shuffle letters from 4 random words and solve by swapping letters.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">Read More</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> Web</div>
+        <h3>Portfolio Website</h3>
+        <p>
+          A lightweight personal site with a reveal intro, responsive grid, and clean UI.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">Live Site</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> Data</div>
+        <h3>Stats / Probability Toolkit</h3>
+        <p>
+          Small scripts for simulations, distributions, and quick checks to support coursework.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">View</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> UI</div>
+        <h3>Calculator App</h3>
+        <p>
+          A clean calculator with keyboard controls, history, and a polished layout.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">Demo</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="badge"><span class="mini-dot"></span> Coming soon</div>
+        <h3>Next Project</h3>
+        <p>
+          Replace this card with your next build. Keep it simple: what it does + why it matters.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#" target="_blank" rel="noreferrer">Details</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Repo</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Julio Felipe — Built with HTML/CSS/JS
+  </footer>
+
+  <script>
+    const overlay = document.getElementById("overlay");
+    const bowButton = document.getElementById("bowButton");
+    const reveal = document.getElementById("reveal");
+
+    function openSite() {
+  // Add spin class
+  bowButton.classList.add("spin");
+
+  // Wait for spin to finish before revealing
+  setTimeout(() => {
+    reveal.classList.remove("play");
+    void reveal.offsetWidth; 
+    reveal.classList.add("play");
+
+    overlay.classList.add("hidden");
+
+    setTimeout(() => {
+      document.body.classList.add("revealed");
+    }, 500);
+
+  }, 150); // matches animation duration
+}
+    bowButton.addEventListener("click", openSite);
+
+    // Enter key support (nice touch on desktop)
+    window.addEventListener("keydown", (e) => {
+      if ((e.key === "Enter" || e.key === " ") && !overlay.classList.contains("hidden")) {
+        e.preventDefault();
+        openSite();
+      }
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
