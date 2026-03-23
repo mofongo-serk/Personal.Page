@@ -1,3 +1,5 @@
+const filmRoll = document.getElementById("filmRoll");
+
 const overlay = document.getElementById("overlay");
 const bowButton = document.getElementById("bowButton");
 const reveal = document.getElementById("reveal");
