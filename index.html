@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jordan Blake — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+  <!-- ═══ FILM STRIP ═══ -->
+  <div class="film-strip" aria-hidden="true">
+    <div class="strip-cap top"></div>
+
+    <div class="sprocket-col left">
+      <div class="sprocket-track" id="holes-left"></div>
+    </div>
+
+    <div class="frames-scroll">
+      <div class="frames-inner">
+        <div class="film-frame"><div class="film-frame-inner">01<div class="frame-label">EXP 1</div></div></div>
+        <div class="film-frame"><div class="film-frame-inner">02<div class="frame-label">EXP 2</div></div></div>
+        <div class="film-frame"><div class="film-frame-inner">03<div class="frame-label">EXP 3</div></div></div>
+        <div class="film-frame"><div class="film-frame-inner">04<div class="frame-label">EXP 4</div></div></div>
+        <div class="film-frame"><div class="film-frame-inner">05<div class="frame-label">EXP 5</div></div></div>
+        <div class="film-frame"><div class="film-frame-inner">06<div class="frame-label">EXP 6</div></div></div>
+        <!-- duplicate for seamless loop -->
+        <div class="film-frame"><div class="film-frame-inner">01<div class="frame-label">EXP 1</div></div></div>
+        <div class="film-frame"><div class="film-frame-inner">02<div class="frame-label">EXP 2</div></div></div>
+        <div class="film-frame"><div class="film-frame-inner">03<div class="frame-label">EXP 3</div></div></div>
+        <div class="film-frame"><div class="film-frame-inner">04<div class="frame-label">EXP 4</div></div></div>
+        <div class="film-frame"><div class="film-frame-inner">05<div class="frame-label">EXP 5</div></div></div>
+        <div class="film-frame"><div class="film-frame-inner">06<div class="frame-label">EXP 6</div></div></div>
+      </div>
+    </div>
+
+    <div class="sprocket-col right">
+      <div class="sprocket-track reverse" id="holes-right"></div>
+    </div>
+
+    <div class="film-brand">KODAK TRI-X 400 · 36EXP</div>
+    <div class="strip-cap bottom"></div>
+  </div>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <div class="main-content">
+
+    <nav>
+      <div class="nav-logo">Jordan Blake</div>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-frame">ISO 400 · Roll 01 · Frame 000</div>
+      <h1>
+        <span>Developer &amp; maker</span>
+        Jordan<br/>Blake
+      </h1>
+      <p class="hero-sub">
+        I build things with code. Full-stack developer obsessed with interfaces,
+        data systems, and the tiny details that make software feel alive.
+        Based in New York — available worldwide.
+      </p>
+      <div class="hero-meta">
+        <div><strong>7</strong> Years exp.</div>
+        <div><strong>6</strong> Projects below</div>
+        <div><strong>∞</strong> Cups of coffee</div>
+      </div>
+      <div class="expo-mark">2026</div>
+    </section>
+
+    <!-- Projects -->
+    <div class="section-head" id="projects">
+      <h2>Contact Sheet</h2>
+      <span class="frame-count">6 exposures — 35mm</span>
+    </div>
+
+    <div class="projects">
+
+      <div class="project-card">
+        <div class="frame-num">01</div>
+        <div class="card-photo" data-c="1">
+          <div class="card-photo-inner">ORBIT</div>
+        </div>
+        <div class="card-info">
+          <p class="card-tag">Web App · 2025</p>
+          <h3 class="card-title">Orbit Dashboard</h3>
+          <p class="card-desc">Real-time analytics for e-commerce. Tracks revenue, churn, and cohort data with live WebSocket feeds and a customisable widget system.</p>
+          <div class="card-footer">
+            <div class="card-tech">
+              <span class="tech-pill">React</span>
+              <span class="tech-pill">Node</span>
+              <span class="tech-pill">Postgres</span>
+            </div>
+            <a href="#" class="card-link">View →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="frame-num">02</div>
+        <div class="card-photo" data-c="2">
+          <div class="card-photo-inner">TIDAL</div>
+        </div>
+        <div class="card-info">
+          <p class="card-tag">CLI Tool · 2025</p>
+          <h3 class="card-title">Tidal Sync</h3>
+          <p class="card-desc">Open-source CLI syncing local music libraries across devices using CRDT-based conflict resolution. 2.1k GitHub stars.</p>
+          <div class="card-footer">
+            <div class="card-tech">
+              <span class="tech-pill">Rust</span>
+              <span class="tech-pill">SQLite</span>
+            </div>
+            <a href="#" class="card-link">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="frame-num">03</div>
+        <div class="card-photo" data-c="3">
+          <div class="card-photo-inner">EMBER</div>
+        </div>
+        <div class="card-info">
+          <p class="card-tag">Mobile App · 2024</p>
+          <h3 class="card-title">Ember Journal</h3>
+          <p class="card-desc">Minimalist journaling with mood tracking, NL search, and weekly reflections. Local-first architecture — no cloud required.</p>
+          <div class="card-footer">
+            <div class="card-tech">
+              <span class="tech-pill">React Native</span>
+              <span class="tech-pill">SQLite</span>
+            </div>
+            <a href="#" class="card-link">App Store →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="frame-num">04</div>
+        <div class="card-photo" data-c="4">
+          <div class="card-photo-inner">RELAY</div>
+        </div>
+        <div class="card-info">
+          <p class="card-tag">API · 2024</p>
+          <h3 class="card-title">Relay Gateway</h3>
+          <p class="card-desc">Self-hosted API gateway with rate limiting, request signing, and a visual traffic explorer. Handles 50k req/s on commodity hardware.</p>
+          <div class="card-footer">
+            <div class="card-tech">
+              <span class="tech-pill">Go</span>
+              <span class="tech-pill">Redis</span>
+              <span class="tech-pill">Docker</span>
+            </div>
+            <a href="#" class="card-link">Docs →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="frame-num">05</div>
+        <div class="card-photo" data-c="5">
+          <div class="card-photo-inner">GROVE</div>
+        </div>
+        <div class="card-info">
+          <p class="card-tag">Data · 2023</p>
+          <h3 class="card-title">Grove Map</h3>
+          <p class="card-desc">Interactive NYC urban tree canopy map built with WebGL. 800k+ trees, species filters, and 20 years of satellite canopy coverage data.</p>
+          <div class="card-footer">
+            <div class="card-tech">
+              <span class="tech-pill">Mapbox GL</span>
+              <span class="tech-pill">Python</span>
+            </div>
+            <a href="#" class="card-link">Explore →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="frame-num">06</div>
+        <div class="card-photo" data-c="6">
+          <div class="card-photo-inner">PRISM</div>
+        </div>
+        <div class="card-info">
+          <p class="card-tag">Design Tool · 2023</p>
+          <h3 class="card-title">Prism Tokens</h3>
+          <p class="card-desc">Design token manager keeping Figma variables and CSS custom properties in sync. Exports to Style Dictionary, Tailwind, raw JSON. 400+ teams use it.</p>
+          <div class="card-footer">
+            <div class="card-tech">
+              <span class="tech-pill">TypeScript</span>
+              <span class="tech-pill">Figma API</span>
+            </div>
+            <a href="#" class="card-link">Plugin →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- About + Contact -->
+    <div class="lower" id="about">
+      <div>
+        <h3>About</h3>
+        <p>Full-stack developer with a background in computer science and an obsession for well-crafted software. I've shipped products used by hundreds of thousands of people and contributed to a dozen open-source projects.</p>
+        <p>When I'm not at a keyboard, I'm shooting film (obviously), cycling through Brooklyn, or hunting for interesting datasets to visualise.</p>
+        <p class="availability">Currently open to new opportunities — contract or full-time.</p>
+      </div>
+      <div id="contact">
+        <h3>Contact</h3>
+        <p>Let's build something together. I respond to every message.</p>
+        <ul class="contact-list">
+          <li>Email: <a href="mailto:hello@jordanblake.dev">hello@jordanblake.dev</a></li>
+          <li>GitHub: <a href="#">github.com/jordanblake</a></li>
+          <li>LinkedIn: <a href="#">linkedin.com/in/jordanblake</a></li>
+          <li>Twitter: <a href="#">@jordanblake_dev</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <footer>© 2026 Jordan Blake · All rights reserved · Shoot film, ship code</footer>
+
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

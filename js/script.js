@@ -1,44 +1,49 @@
-const filmRoll = document.getElementById("filmRoll");
-
-const overlay = document.getElementById("overlay");
-const bowButton = document.getElementById("bowButton");
-const reveal = document.getElementById("reveal");
-
-function openSite() {
-  // Prevent double clicks
-  bowButton.disabled = true;
-
-  // Restart spin cleanly
-  bowButton.classList.remove("spin");
-  void bowButton.offsetWidth; // force reflow
-  bowButton.classList.add("spin");
-
-  // Wait for spin to finish (no timing mismatch ever)
-  bowButton.addEventListener("animationend", () => {
-    // Play curtain reveal
-    reveal.classList.remove("play");
-    void reveal.offsetWidth;
-    reveal.classList.add("play");
-
-    // Hide overlay
-    overlay.classList.add("hidden");
-
-    // Reveal content
-    setTimeout(() => {
-      document.body.classList.add("revealed");
-    }, 500);
-  }, { once: true });
+// ── Build sprocket holes (duplicated for seamless CSS loop) ──
+function buildHoles(trackEl, count) {
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < count * 2; i++) {
+    const hole = document.createElement('div');
+    hole.className = 'hole';
+    frag.appendChild(hole);
+  }
+  trackEl.appendChild(frag);
 }
 
-bowButton.addEventListener("click", openSite);
+buildHoles(document.getElementById('holes-left'), 60);
+buildHoles(document.getElementById('holes-right'), 60);
 
-// Keyboard support
-window.addEventListener("keydown", (e) => {
-  if ((e.key === "Enter" || e.key === " ") && !overlay.classList.contains("hidden")) {
-    e.preventDefault();
-    openSite();
-  }
+// ── Pause film strip animation on hover ──
+const strip       = document.querySelector('.film-strip');
+const framesInner = document.querySelector('.frames-inner');
+
+strip.addEventListener('mouseenter', () => {
+  framesInner.style.animationPlayState = 'paused';
+  document.querySelectorAll('.sprocket-track').forEach(t => {
+    t.style.animationPlayState = 'paused';
+  });
 });
 
-// Footer year
-document.getElementById("year").textContent = new Date().getFullYear();
+strip.addEventListener('mouseleave', () => {
+  framesInner.style.animationPlayState = 'running';
+  document.querySelectorAll('.sprocket-track').forEach(t => {
+    t.style.animationPlayState = 'running';
+  });
+});
+
+// ── Scroll-reveal project cards ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity  = '1';
+      entry.target.style.transform = 'translateY(0)';
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.project-card').forEach((card, i) => {
+  card.style.opacity   = '0';
+  card.style.transform = 'translateY(28px)';
+  card.style.transition = `opacity 0.6s ${i * 0.09}s, transform 0.6s ${i * 0.09}s`;
+  observer.observe(card);
+});
